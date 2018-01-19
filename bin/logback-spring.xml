@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration>
+	<property name="logEncoding" value="UTF-8"/>
+	<property name="logPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"/>
+	<property name="maxFileSize" value="30MB"/>
+	<property name="logFileNamePattern" value="/logs/kafka-service/kafkaservice_%d{yyyy-MM-dd}.%i.log"/>
+	<timestamp key="timestamp" datePattern="yyyy-MM-dd-HH:mm:ss" />
+	
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<File>/logs/kafka-service/kafkaservice_${timestamp}.log</File>
+ 			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        		<fileNamePattern>${logFileNamePattern}</fileNamePattern>
+        		<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+           		<maxFileSize>${maxFileSize}</maxFileSize>
+        		</timeBasedFileNamingAndTriggeringPolicy>
+			</rollingPolicy>
+			<encoder>
+        		<charset>${logEncoding}</charset>
+        		<pattern>${logPattern}</pattern>
+    		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="FILE"/>
+	</root>
+</configuration> 

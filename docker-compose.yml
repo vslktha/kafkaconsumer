@@ -1,0 +1,19 @@
+version: '3'
+services:
+  kafka-service:
+      volumes:
+       - data:/usr/src/app/data
+       - log:/logs
+       - secrets:/secrets
+      image: docker-test.artifactory.amwaters.com/amwater/artifactory:latest
+      container_name: kafka-service
+      labels:
+        kompose.service.type: NodePort
+        app: kafka-service
+      ports:
+       -  "8080:8080"
+      healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8080"]
+        interval: 30s
+        timeout: 10s
+        retries: 3
